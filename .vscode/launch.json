@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "red-green-ai",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart"
+        },
+        {
+            "name": "red-green-ai (profile mode)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "red-green-ai (release mode)",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
