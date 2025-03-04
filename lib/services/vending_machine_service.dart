@@ -1,23 +1,41 @@
+import 'can.dart';
+import 'index_out_of_range_exception.dart';
+import 'insufficient_funds_exception.dart';
+import 'inventory.dart';
+import 'sold_out_exception.dart';
+
 class VendingMachineService {
-  final Map<String, int> _inventory = {};
+  int _money = 0;
+  List<Inventory> _inventory;
 
-  void stockItem(String item, int quantity) {
-    if (_inventory.containsKey(item)) {
-      _inventory[item] = _inventory[item]! + quantity;
-    } else {
-      _inventory[item] = quantity;
-    }
+  VendingMachineService(List<Inventory> inventory) : _inventory = inventory;
+
+  void insertMoney(int amount) {
+    _money += amount;
   }
 
-  bool dispenseItem(String item) {
-    if (_inventory.containsKey(item) && _inventory[item]! > 0) {
-      _inventory[item] = _inventory[item]! - 1;
-      return true;
+  Can fetch({required int index}) {
+    if (index < 0 || index >= _inventory.length) {
+      throw IndexOutOfRangeException();
     }
-    return false;
+    if (_money < _inventory[index].can.price) {
+      throw InsufficientFundsException();
+    }
+    if (_inventory[index].amount <= 0) {
+      throw SoldOutException();
+    }
+    _money -= _inventory[index].can.price;
+    _inventory[index].amount -= 1;
+    return _inventory[index].can;
   }
 
-  int getItemCount(String item) {
-    return _inventory[item] ?? 0;
+  int change() {
+    int change = _money;
+    _money = 0;
+    return change;
+  }
+
+  void setInventory(List<Inventory> inventory) {
+    _inventory = inventory;
   }
 }

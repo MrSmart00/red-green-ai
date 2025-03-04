@@ -1,0 +1,1 @@
+class InsufficientFundsException implements Exception {}

@@ -1,0 +1,1 @@
+class SoldOutException implements Exception {}

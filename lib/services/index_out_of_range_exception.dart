@@ -1,0 +1,1 @@
+class IndexOutOfRangeException implements Exception {}
